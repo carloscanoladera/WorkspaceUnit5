@@ -1,0 +1,5 @@
+[ERROR] 2024-03-15 13:21:03.739 [main] App - Error de IRPF en el empleado. Negativo. Solucionar
+[INFO ] 2024-03-15 13:21:03.743 [main] App - Procedemos a borrar el empleado
+[ERROR] 2024-03-15 13:32:25.858 [main] Impuestos - Se va a lanzar la excepcion ErrorIRPFException
+[ERROR] 2024-03-15 13:32:25.864 [main] App - Error de IRPF en el empleado. Negativo. Solucionar
+[INFO ] 2024-03-15 13:32:25.864 [main] App - Procedemos a borrar el empleado

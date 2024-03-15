@@ -1,4 +1,4 @@
-package excepcionesapp;
+package iesjandula.projectunitefive.excepcionesapp;
 
 import java.util.InputMismatchException;
 import java.util.Scanner;

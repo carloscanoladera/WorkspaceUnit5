@@ -1,4 +1,4 @@
-package excepcionesapp;
+package iesjandula.projectunitefive.excepcionesapp;
 
 public class ErrorIRPFException extends Exception {
 
@@ -10,6 +10,8 @@ public class ErrorIRPFException extends Exception {
 	public ErrorIRPFException(String mensaje) {
 
 		super(mensaje);
+		
+		
 
 	}
 
