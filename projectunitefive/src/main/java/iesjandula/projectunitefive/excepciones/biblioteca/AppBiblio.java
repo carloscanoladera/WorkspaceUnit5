@@ -22,6 +22,11 @@ public class AppBiblio {
 
 			switch (opcion) {
 
+			case 0 -> {
+
+				bsalir = false;
+			}
+
 			case 1 -> {
 
 				biblio.listarLibros();
@@ -47,15 +52,33 @@ public class AppBiblio {
 
 			case 5 -> {
 
+				if (borrarLibro(biblio)) {
+
+					System.out.println("Libro borrado correctamente");
+
+				} else {
+
+					System.out.println("Libro no borrado correctamente");
+				}
+
 			}
 
 			case 6 -> {
+
+				Libro libro = buscarLibro(biblio);
+
+				if (!biblio.esNulo(libro)) {
+
+					System.out.println("Libro encontrado" + libro);
+				} else {
+
+					System.out.println("Libro no encontrado");
+				}
 
 			}
 
 			case 7 -> {
 
-				bsalir = false;
 			}
 
 			}
@@ -69,7 +92,7 @@ public class AppBiblio {
 		int res = -1;
 
 		System.out.println("Introduzca una opción entre las siguientes:");
-
+		System.out.println("--0 Salir");
 		System.out.println("--1 Listar libros");
 
 		System.out.println("--2 Listar libros de ficcion");
@@ -78,7 +101,7 @@ public class AppBiblio {
 		System.out.println("--4 Introducir libro");
 		System.out.println("--5 Borrar libro");
 		System.out.println("--6 Buscar libro");
-		System.out.println("--7 Salir");
+		System.out.println("--7 Ordenar");
 
 		res = sc.nextInt();
 		sc.nextLine();
@@ -112,8 +135,6 @@ public class AppBiblio {
 
 		System.out.println("Introduzca la referencia del libro");
 		referencia = sc.nextLine();
-
-
 
 		tipoLibro = leerTipoLibro();
 
@@ -164,23 +185,79 @@ public class AppBiblio {
 		System.out.println("4. CUENTOS  ");
 
 		int indice = sc.nextInt();
+		sc.nextLine();
 
 		tipolibro = EnumLibro.values()[indice];
 
 		return tipolibro;
 
 	}
-	
+
 	private static boolean borrarLibro(Biblioteca biblio) {
-		String referencia= "";
-		
+		String referencia = "";
+
 		System.out.println("Introduzca la referencia del libro a borrar. ");
-		
-		referencia= sc.nextLine();
-		
+
+		referencia = sc.nextLine();
+
 		return biblio.eliminarLibro(referencia);
-		
-				
+
+	}
+
+	private static Libro buscarLibro(Biblioteca biblio) {
+
+		String referencia = "";
+
+		System.out.println("Introduzca la referencia del libro a buscar. ");
+
+		referencia = sc.nextLine();
+
+		return biblio.buscarLibroPorCcc(referencia);
+	}
+
+	private static void ordenarPor(Biblioteca biblio) {
+
+		System.out.println("1. Titulo");
+		System.out.println("2. Autor  ");
+		System.out.println("3. Año publicacion  ");
+		System.out.println("4. Referencia  ");
+
+		int indice = sc.nextInt();
+		sc.nextLine();
+
+		switch (indice) {
+
+		case 1 -> {
+
+			biblio.ordenarLibrosPor((l1, l2) -> l1.getTitulo().compareTo(l2.getTitulo()));
+
+		}
+
+		case 2 -> {
+
+			biblio.ordenarLibrosPor((l1, l2) -> l1.getAutor().compareTo(l2.getAutor()));
+
+		}
+
+		case 3 -> {
+
+			biblio.ordenarLibrosPor((l1, l2) -> l1.getAnnioPublicacion() - l2.getAnnioPublicacion());
+		}
+
+		case 4 -> {
+
+			biblio.ordenarLibros();
+
+		}
+
+		default -> {
+
+			System.out.println("Opcion incorrecta");
+
+		}
+
+		}
+
 	}
 
 }

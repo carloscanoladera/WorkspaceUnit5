@@ -1,36 +1,36 @@
 package iesjandula.projectunitefive.excepciones.biblioteca;
 
-
+import java.util.Arrays;
+import java.util.Comparator;
 
 public class Biblioteca {
-	
-	private static final Libro libroNulo= new LibroFiccion("LibroNulo",new Autor("ZZZZZ","ZZZZZZ","ZZZZZ"),0,"LibroNulo","ZZZZZZZZZZZZZZZZZZZZZZZZZZZ", EnumLibro.CUENTOS);
+
+	public static final Libro libroNulo = new LibroFiccion("LibroNulo", new Autor("ZZZZZ", "ZZZZZZ", "ZZZZZ"), 0,
+			"LibroNulo", "ZZZZZZZZZZZZZZZZZZZZZZZZZZZ", EnumLibro.CUENTOS);
 	private String nombre;
 	private Libro[] libros;
-	
-	private final int MAX_LIBROS=200;
-	private int contLibros=0;
-	
-	
+
+	private final int MAX_LIBROS = 200;
+	private int contLibros = 0;
+
 	// Quiero que lo hagais igual que La tienda y el clienta
 	// con el objeto LibroNulo
-	
+
 	// ademas de los metodos del ejercicio añadir los mismos métodos que en tienda
-	
+
 	public Biblioteca(String nombre) {
-		this.nombre= nombre;
-		 libros= new Libro[MAX_LIBROS];
+		this.nombre = nombre;
+		libros = new Libro[MAX_LIBROS];
 		rellenaLibrosNull();
-		
+
 	}
-	
+
 	public Biblioteca(String nombre, Libro[] librosParam) {
-		
+
 		this(nombre);
-		
+
 		agregarLibros(librosParam);
-		
-		
+
 	}
 
 	public String getNombre() {
@@ -41,7 +41,6 @@ public class Biblioteca {
 		this.nombre = nombre;
 	}
 
-	
 	public void agregarLibro(Libro libro) {
 
 		int cont = 0;
@@ -67,10 +66,7 @@ public class Biblioteca {
 		}
 
 	}
-	
-	
-	
-	
+
 	public void agregarLibros(Libro[] librosadd) {
 
 		for (int i = 0; i < librosadd.length && contLibros < MAX_LIBROS; i++) {
@@ -80,7 +76,7 @@ public class Biblioteca {
 		}
 
 	}
-	
+
 	public boolean eliminarLibro(String referencia) {
 		// TODO Auto-generated method stub
 
@@ -98,26 +94,23 @@ public class Biblioteca {
 		return encontrado;
 
 	}
-	
+
 	public boolean eliminarLibro(Libro libro) {
 		// TODO Auto-generated method stub
-
-		
 
 		return eliminarLibro(libro.getReferencia());
 
 	}
-	
+
 	public boolean hayLibros() {
 
 		return contLibros > 0;
 	}
-	
-	
+
 	public Libro[] getLibros() {
-		
-		Libro [] librosRes = new Libro[contLibros];
-		
+
+		Libro[] librosRes = new Libro[contLibros];
+
 		int contlib = 0;
 
 		for (int i = 0; i < libros.length && contlib < contLibros; i++) {
@@ -129,14 +122,10 @@ public class Biblioteca {
 			}
 
 		}
-		
-		
+
 		return librosRes;
 	}
 
-
-	
-	
 	public Libro buscarLibroPorTitulo(String titulo) {
 
 		Libro libroRes = libroNulo;
@@ -161,7 +150,7 @@ public class Biblioteca {
 
 		for (int i = 0; i < MAX_LIBROS; i++) {
 
-			if (libros[i].getReferencia().equals(referencia)  && !encontrado) {
+			if (libros[i].getReferencia().equals(referencia) && !encontrado) {
 
 				libroRes = libros[i];
 			}
@@ -172,39 +161,57 @@ public class Biblioteca {
 	}
 
 	public void listarLibros() {
-		
-      
-		 for (Libro libro: this.getLibros()) {
-			 
-			 System.out.println(libro);
-		 }
-			 
-			 
+
+		for (Libro libro : this.getLibros()) {
+
+			System.out.println(libro);
+		}
+
 	}
-	
+
 	public void listarLibrosFiccion() {
-		
-		 for (Libro libro: this.getLibros()) {
-			 
-			 if (!libro.esEducativo() )				 
-				 System.out.println(libro);
-		 
-		 }
-		
+
+		for (Libro libro : this.getLibros()) {
+
+			if (!libro.esEducativo())
+				System.out.println(libro);
+
+		}
+
 	}
-	
+
 	public void listarLibrosEducativos() {
-		
-		 for (Libro libro: this.getLibros()) {
-			 
-			 if (libro.esEducativo())				 
-				 System.out.println(libro);
-		 
-		 }
-		
+
+		for (Libro libro : this.getLibros()) {
+
+			if (libro.esEducativo())
+				System.out.println(libro);
+
+		}
+
 	}
-	
-	
+
+	public boolean esNulo(Libro libro) {
+
+		return (libro.compareTo(libroNulo) == 0);
+	}
+
+	public void ordenarLibros() {
+
+		Arrays.sort(libros);
+
+		listarLibros();
+
+	}
+
+	public void ordenarLibrosPor(Comparator<Libro> comparador) {
+
+		Arrays.sort(libros, comparador);
+
+		listarLibros();
+
+	}
+
 	private void rellenaLibrosNull() {
 
 		for (int i = 0; i < MAX_LIBROS; i++) {
@@ -212,7 +219,5 @@ public class Biblioteca {
 			libros[i] = libroNulo;
 		}
 	}
-	
-	
 
 }

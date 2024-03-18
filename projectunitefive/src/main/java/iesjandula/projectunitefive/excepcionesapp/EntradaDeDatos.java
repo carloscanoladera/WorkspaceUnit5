@@ -1,5 +1,6 @@
 package iesjandula.projectunitefive.excepcionesapp;
 
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -10,6 +11,8 @@ public class EntradaDeDatos {
 	public EntradaDeDatos() {
 
 		sc = new Scanner(System.in);
+		
+		
 
 	}
 
