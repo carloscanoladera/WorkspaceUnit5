@@ -1,4 +1,4 @@
-package iesjandula.projectunit5.excepciones.ejercicios.biblioteca.excepciones;
+package iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.excepciones;
 
 public class EntradaDeDatosException extends Exception {
 	

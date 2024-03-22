@@ -1,11 +1,16 @@
 package iesjandula.projectunitefive.excepciones.ejercicios.biblioteca;
 
-import java.util.InputMismatchException;
 import java.util.Optional;
 import java.util.Scanner;
 
-import iesjandula.projectunit5.excepciones.ejercicios.biblioteca.excepciones.EntradaDeDatosException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
 import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.datos.EntradaDeDatos;
+import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.excepciones.EntradaDeDatosException;
+import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.excepciones.MenuException;
 import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo.Autor;
 import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo.Biblioteca;
 import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo.EnumLibro;
@@ -13,222 +18,248 @@ import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo.Libr
 import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo.LibroEducativo;
 import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo.LibroFiccion;
 
-
 public class AppBiblio {
 
-	   private static Scanner sc;
+	static {
+		String fileConfig = System.getProperty("user.dir") + "\\src\\main\\resources\\log4j2.properties";
 
-	   public static void main(String[] args) {
-	       int opcion = 0;
+		System.setProperty("log4j2.configurationFile", fileConfig);
+	}
 
-	       Biblioteca biblio = new Biblioteca("Biblioteca municipal de Andujar");
+	private static final Logger appLogger = LogManager.getLogger();
+	private static final Marker marker = MarkerManager.getMarker("AppBiblio");
 
-	       sc = new Scanner(System.in);
+	private static Scanner sc;
 
-	       boolean bsalir = true;
+	public static void main(String[] args) {
+		int opcion = 0;
 
-	       while (bsalir) {
+		Biblioteca biblio = new Biblioteca("Biblioteca municipal de Andujar");
 
-	           opcion = opcionesMenu();
+		sc = new Scanner(System.in);
 
-	           switch (opcion) {
+		boolean bsalir = true;
 
-	           case 1 -> {
+		while (bsalir) {
 
-	               biblio.listarLibros();
-	           }
+			try {
+				opcion = opcionesMenu();
 
-	           case 2 -> {
+				switch (opcion) {
 
-	               biblio.listarLibrosFiccion();
+				case 1 -> {
 
-	           }
+					biblio.listarLibros();
+				}
 
-	           case 3 -> {
+				case 2 -> {
 
-	               biblio.listarLibrosEducativos();
+					biblio.listarLibrosFiccion();
 
-	           }
-	           case 4 -> {
+				}
 
-	               Optional<Libro> optLibro = introducirLibro();
+				case 3 -> {
 
-	               if (optLibro.isEmpty()) {
-	            	   //bloque de codigo si el libro está vacio
-	               } else if (optLibro.isPresent()){
-	            	   // acciones a hacer si el libro no está hueco.
-	            	   biblio.listarLibros();
-	               }
-	               
-	               
-	           }
+					biblio.listarLibrosEducativos();
 
-	           case 5 -> {
+				}
+				case 4 -> {
 
-	           }
+					Optional<Libro> optLibro = introducirLibro();
 
-	           case 6 -> {
+					while (optLibro.isEmpty()) {
 
-	           }
+						System.out.println("Introducir libro de nuevo");
+						optLibro = introducirLibro();
+					}
 
-	           case 7 -> {
+					biblio.listarLibros();
 
-	               bsalir = false;
-	           }
+				}
 
-	           }
+				case 5 -> {
 
-	       }
+				}
 
-	   }
+				case 6 -> {
 
-	   private static int opcionesMenu() {
-	       // TODO Auto-generated method stub
-	       int res = -1;
+				}
 
-	       System.out.println("Introduzca una opción entre las siguientes:");
+				case 7 -> {
 
-	       System.out.println("--1 Listar libros");
+					bsalir = false;
+				}
 
-	       System.out.println("--2 Listar libros de ficcion");
+				}
 
-	       System.out.println("--3 Listar libros educativos");
-	       System.out.println("--4 Introducir libro");
-	       System.out.println("--5 Borrar libro");
-	       System.out.println("--6 Buscar libro");
-	       System.out.println("--7 Salir");
+			} catch (MenuException e) {
+				// TODO Auto-generated catch block
 
-	       res = sc.nextInt();
-	       sc.nextLine();
+				System.out.println("Error en la opción de menu introduzca la correcata.\n" +e.getMessage());
+				
+				appLogger.error(marker, "Error en la opción de menu introduzca la correcata.\n" + e.getMessage());
+				EntradaDeDatos.pulsaEnterParaContinuar();
+			}
 
-	       return res;
-
-	   }
-
-	   private static Optional<Libro> introducirLibro() {
-		   
-		   Libro libroRes = null;
-	       
-	       Optional<Libro> libroResOpt=Optional.empty();
-	       
-	       String titulo;
-	       Autor autor;
-	       int annioPublicacion;
-	       String editorial;
-	       String referencia;
-	       EnumLibro tipoLibro;
-	       
-	       try {
-
-		       System.out.println("Introduzca el titulo del libro");
-		       titulo = EntradaDeDatos.leerTitulo();
-		       //titulo = sc.nextLine();
-	
-		       //autor = leerAutor();
-		       autor = leerAutor();
-		       System.out.println("Introduzca el año de publicacion del libro");
-		       //annioPublicacion = sc.nextInt();
-		       //sc.nextLine();
-	
-		       annioPublicacion = EntradaDeDatos.leerAnnio();
-		       
-		       System.out.println("Introduzca el editorial del libro");
-		       //editorial = sc.nextLine();
-		       editorial = EntradaDeDatos.leerEditorial();
-	
-		       System.out.println("Introduzca la referencia del libro");
-		       //referencia = sc.nextLine();
-		       referencia = EntradaDeDatos.leeReferenciaLibro();
-	
-		       tipoLibro = leerTipoLibro();
-
-		       if (tipoLibro.esEducativo(tipoLibro)) {
-	
-		           System.out.println("Introduzca la materia del libro");
-	
-		           String materia = sc.nextLine();
-	
-		           libroRes = new LibroEducativo(titulo, autor, annioPublicacion, editorial, referencia, tipoLibro, materia);
-	
-		       } else {
-	
-		           libroRes = new LibroFiccion(titulo, autor, annioPublicacion, editorial, referencia, tipoLibro);
-		       }
-	       
-	       } // ciera el try.
-	       catch (EntradaDeDatosException exe)
-	       {
-	    	   System.out.println("Error en la entrada de datos.\n" + exe.getMessage());
-	    	   EntradaDeDatos.pulsaEnterParaContinuar();
-	    	   // el catch provoca un return de nulo o 0.
-	       } // cierra el catch.
-	       
-	       finally {
-	    	   
-	    	   if (libroRes!=null) {
-	    		   libroResOpt=Optional.of(libroRes); 
-	    		   System.out.println("El libro "+ libroRes.getTitulo() +" se ha introducido correctamente.");
-	    	   }
-	    	   else {
-	    		   libroResOpt=Optional.empty();	    	   }
-	    	   
-	       }
-	       
-	       return libroResOpt;
-
-	   }
-
-	   private static Autor leerAutor() throws EntradaDeDatosException {
-	       
-		   String nombreYApellidos; 
-		   String nombre;
-	       String apellidos;
-	       String dni;
-
-	       System.out.println("Introduzca el nombre y apellidos del autor");
-	       nombreYApellidos = EntradaDeDatos.leerNombreYApellidosAutor();
-	       
-	       //nombre = sc.nextLine();
-	       nombre=EntradaDeDatos.getNombreAutor(nombreYApellidos);
-	       apellidos=EntradaDeDatos.getApellidosAutor(nombreYApellidos);
-
-	       //System.out.println("Introduzca los apellidos del autor");
-	       //apellidos = sc.nextLine();
-
-	       System.out.println("Introduzca el dni del autor");
-	       //dni = sc.nextLine();
-	       dni = EntradaDeDatos.leerDniAutor();
-	       
-	       return new Autor(nombre, apellidos, dni);
-
-	   }
-
-	   private static EnumLibro leerTipoLibro() throws EntradaDeDatosException {
-
-	       EnumLibro tipolibro;
-
-	       System.out.println("Introduzca el tipo del libro. ");
-	       System.out.println("0. NOVELA, ");
-	       System.out.println("1. EDUCATIVO ");
-	       System.out.println("2. TECNICO ");
-	       System.out.println("3. POEMARIO ");
-	       System.out.println("4. CUENTOS ");
-
-	       tipolibro = EntradaDeDatos.leerTipoLibro();
-
-	       return tipolibro;
-
-	   }
-	   
-	   public static boolean borrarLibro(Biblioteca biblioteca) {
-		   
-		   String referencia="";
-		   
-		   System.out.println("Introduzca la referencia del libro a borrar.");
-		   referencia=sc.nextLine();
-		   
-		   return biblioteca.eliminarLibro(referencia); 
-
-	   }
+		}
 
 	}
+
+	private static int opcionesMenu() throws MenuException {
+		// TODO Auto-generated method stub
+		int res = -1;
+
+		System.out.println("Introduzca una opción entre las siguientes:");
+
+		System.out.println("--1 Listar libros");
+
+		System.out.println("--2 Listar libros de ficcion");
+
+		System.out.println("--3 Listar libros educativos");
+		System.out.println("--4 Introducir libro");
+		System.out.println("--5 Borrar libro");
+		System.out.println("--6 Buscar libro");
+		System.out.println("--7 Salir");
+
+		res = EntradaDeDatos.leerOpcionMenu(1, 7);
+		sc.nextLine();
+
+		return res;
+
+	}
+
+	private static Optional<Libro> introducirLibro() {
+
+		Libro libroRes = null;
+
+		Optional<Libro> libroResOpt = Optional.empty();
+
+		String titulo;
+		Autor autor;
+		int annioPublicacion;
+		String editorial;
+		String referencia;
+		EnumLibro tipoLibro;
+
+		try {
+
+			System.out.println("Introduzca el titulo del libro");
+			titulo = EntradaDeDatos.leerTitulo();
+			// titulo = sc.nextLine();
+
+			// autor = leerAutor();
+			autor = leerAutor();
+			System.out.println("Introduzca el año de publicacion del libro");
+			// annioPublicacion = sc.nextInt();
+			// sc.nextLine();
+
+			annioPublicacion = EntradaDeDatos.leerAnnio();
+
+			System.out.println("Introduzca el editorial del libro");
+			// editorial = sc.nextLine();
+			editorial = EntradaDeDatos.leerEditorial();
+
+			System.out.println("Introduzca la referencia del libro");
+			// referencia = sc.nextLine();
+			referencia = EntradaDeDatos.leeReferenciaLibro();
+
+			tipoLibro = leerTipoLibro();
+
+			if (tipoLibro.esEducativo(tipoLibro)) {
+
+				System.out.println("Introduzca la materia del libro");
+
+				String materia = sc.nextLine();
+
+				libroRes = new LibroEducativo(titulo, autor, annioPublicacion, editorial, referencia, tipoLibro,
+						materia);
+
+			} else {
+
+				libroRes = new LibroFiccion(titulo, autor, annioPublicacion, editorial, referencia, tipoLibro);
+			}
+
+		} // ciera el try.
+		catch (EntradaDeDatosException exe) {
+
+			appLogger.error(marker, "Error en la entrada de datos.\n" + exe.getMessage());
+
+			System.out.println("Error en la entrada de datos.\n" + exe.getMessage());
+			EntradaDeDatos.pulsaEnterParaContinuar();
+			// el catch provoca un return de nulo o 0.
+		} // cierra el catch.
+
+		finally {
+
+			if (libroRes != null) {
+				libroResOpt = Optional.of(libroRes);
+
+				appLogger.info(marker, "El libro " + libroRes.getTitulo() + " se ha introducido correctamente.");
+
+				System.out.println("El libro " + libroRes.getTitulo() + " se ha introducido correctamente.");
+			} else {
+				libroResOpt = Optional.empty();
+
+				appLogger.error(marker, "El libro se ha introducido incorrectamente.");
+			}
+
+		}
+
+		return libroResOpt;
+
+	}
+
+	private static Autor leerAutor() throws EntradaDeDatosException {
+
+		String nombreYApellidos;
+		String nombre;
+		String apellidos;
+		String dni;
+
+		System.out.println("Introduzca el nombre y apellidos del autor");
+		nombreYApellidos = EntradaDeDatos.leerNombreYApellidosAutor();
+
+		// nombre = sc.nextLine();
+		nombre = EntradaDeDatos.getNombreAutor(nombreYApellidos);
+		apellidos = EntradaDeDatos.getApellidosAutor(nombreYApellidos);
+
+		// System.out.println("Introduzca los apellidos del autor");
+		// apellidos = sc.nextLine();
+
+		System.out.println("Introduzca el dni del autor");
+		// dni = sc.nextLine();
+		dni = EntradaDeDatos.leerDniAutor();
+
+		return new Autor(nombre, apellidos, dni);
+
+	}
+
+	private static EnumLibro leerTipoLibro() throws EntradaDeDatosException {
+
+		EnumLibro tipolibro;
+
+		System.out.println("Introduzca el tipo del libro. ");
+		System.out.println("0. NOVELA, ");
+		System.out.println("1. EDUCATIVO ");
+		System.out.println("2. TECNICO ");
+		System.out.println("3. POEMARIO ");
+		System.out.println("4. CUENTOS ");
+
+		tipolibro = EntradaDeDatos.leerTipoLibro();
+
+		return tipolibro;
+
+	}
+
+	public static boolean borrarLibro(Biblioteca biblioteca) {
+
+		String referencia = "";
+
+		System.out.println("Introduzca la referencia del libro a borrar.");
+		referencia = sc.nextLine();
+
+		return biblioteca.eliminarLibro(referencia);
+
+	}
+
+}

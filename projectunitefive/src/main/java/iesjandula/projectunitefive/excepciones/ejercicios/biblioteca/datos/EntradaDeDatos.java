@@ -3,9 +3,15 @@ package iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.datos;
 import java.util.Scanner;
 import java.util.StringTokenizer;
 
-import iesjandula.projectunit5.excepciones.ejercicios.biblioteca.excepciones.EntradaDeDatosException;
-import iesjandula.projectunit5.excepciones.ejercicios.biblioteca.excepciones.MenuException;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.Marker;
+import org.apache.logging.log4j.MarkerManager;
+
+import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.excepciones.EntradaDeDatosException;
+import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.excepciones.MenuException;
 import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo.EnumLibro;
+
 
 // esto es una clase sin estado, de funcionalidad, por lo que hacemos todo STATIC.
 public class EntradaDeDatos {
@@ -13,6 +19,11 @@ public class EntradaDeDatos {
 	private static final Scanner sc = new Scanner(System.in);
 	private static final String SEPARADOR_REFERENCIA = "-";
 	private static final int LONGITUD_REFERENCIA = 17;
+	
+	private static final Logger logger = LogManager.getLogger();
+	private static final Marker marker = MarkerManager.getMarker(EntradaDeDatos.class.toString());
+
+
 	
 	
 	public static int leerOpcionMenu(int min, int max) throws MenuException {
@@ -74,6 +85,8 @@ public class EntradaDeDatos {
 		}
 
 		StringTokenizer sToken = new StringTokenizer(referencia, SEPARADOR_REFERENCIA, true);
+		
+		logger.debug(marker, "Comienzo del while de validación de la referencia de libro ");
 
 		while (sToken.hasMoreTokens() && bCorrecto) {
 
@@ -91,6 +104,8 @@ public class EntradaDeDatos {
 			contador++;
 
 		}
+		
+		logger.debug(marker, "El while de validación de la referencia de libro funciona correctamente");
 		
 		if (!bCorrecto) {
 			throw new EntradaDeDatosException("La referencia introducida no es valida.\nSiga el formato indicado. \nFormato nnn-nn-nnnn-nnn-n ");
@@ -140,11 +155,15 @@ public class EntradaDeDatos {
 		nombreApellidos.trim();
 		StringTokenizer tokens = new StringTokenizer(nombreApellidos);
 
+		
+		logger.debug(marker, "Comienzo del while de validación de nombre y apellidos ");
 		while (tokens.hasMoreTokens()) {
 
 			nombreApellidosFormateado = nombreApellidosFormateado + " " + primeraMayuscula(tokens.nextToken());
 
 		}
+		
+		logger.debug(marker, " while de validación de nombre y apellidos funciona correctamente");
 
 		nombreApellidosFormateado.trim();
 		

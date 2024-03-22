@@ -1,4 +1,4 @@
-package iesjandula.projectunit5.excepciones.ejercicios.biblioteca.excepciones;
+package iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.excepciones;
 public class MenuException extends Exception {
 
    private final static String MENSAJE = "Error al introducir el número solicitado. ";
