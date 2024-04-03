@@ -122,7 +122,7 @@ public class AppBiblio {
 		System.out.println("--7 Salir");
 
 		res = EntradaDeDatos.leerOpcionMenu(1, 7);
-		sc.nextLine();
+	
 
 		return res;
 

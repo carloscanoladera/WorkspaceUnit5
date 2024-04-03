@@ -1,4 +1,4 @@
-package stringejemplos;
+package Stringejemplos;
 
 public class PrimerosStrings {
 	
@@ -7,9 +7,8 @@ public class PrimerosStrings {
 		String cadenavacia="";
 		
 		String cadena="Cadena con literal";
-		
 		System.out.println("Longitud de la cadena: " + cadena.length());
-		
+
 		double miNum= 5.0;
 		
 			
@@ -18,7 +17,7 @@ public class PrimerosStrings {
 		System.out.println(" resultado concatenar " + cadena);
 		
 		
-		cadena = cadena + miNum;
+		cadena = cadena + miNum + 4.0;
 		
 		System.out.println(" resultado concatenar con double " + cadena);
 	
