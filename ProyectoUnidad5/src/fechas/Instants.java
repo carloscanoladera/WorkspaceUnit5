@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 
 public class Instants {
 
@@ -26,20 +27,36 @@ public class Instants {
 
 
 	
-	
 	LocalDateTime local = LocalDateTime.now();
 	
 	
 	Instant instant3 = local.toInstant(zoneDefault.getRules().getOffset(local));
 	
-	System.out.println(instant3.toEpochMilli());
+	System.out.println(instant3.toEpochMilli());	
+
 	
-	
-	
+	System.out.println(instant3);
 	
 	LocalDateTime locFromInstant = LocalDateTime.ofInstant(instant3, zoneDefault);
 	
 	System.out.println(locFromInstant);
+	
+	
+	ZoneId zoneCalcutta = ZoneId.of("Asia/Calcutta");
+	
+	ZonedDateTime zdatetime = ZonedDateTime.now(zoneCalcutta);
+	
+
+	System.out.println(zdatetime);
+	
+	Instant instant5 = zdatetime.toInstant();	
+	
+	
+	System.out.println(instant5);
+	
+	System.out.println(instant5.atZone(zoneCalcutta));
+	
+
 
 	}
 }

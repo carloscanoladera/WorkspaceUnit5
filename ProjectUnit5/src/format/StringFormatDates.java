@@ -1,4 +1,4 @@
-package formato;
+package format;
 
 import java.time.LocalDateTime;
 import java.util.Locale;

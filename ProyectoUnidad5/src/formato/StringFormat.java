@@ -47,6 +47,9 @@ public class StringFormat {
 		System.out.println(String.format(locale2, "%1$-20s %2$-10.4f %2$-20f %3$-6.1f", nombre, salario, 56.3f));
 
 		
+		System.out.println(String.format(locale2, "%1$-20s %2$010.4f %2$-+20f %3$,- 6.1f", nombre, salario, 56.3f));
+
+		
 	}
 
 }

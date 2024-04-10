@@ -63,11 +63,11 @@ public class ClockClase {
 
 		ZoneId zoneSingapore = ZoneId.of("Asia/Singapore");
 		Clock clockSingapore = Clock.system(zoneSingapore);
-		System.out.println(clockSingapore.instant());
+		System.out.println(clockSingapore.instant().atZone(zoneSingapore));
 
 		ZoneId zoneCalcutta = ZoneId.of("Asia/Calcutta");
 		Clock clockCalcutta = clockSingapore.withZone(zoneCalcutta);
-		System.out.println(clockCalcutta.instant());
+		System.out.println(clockCalcutta.instant().atZone(zoneCalcutta));
 
 		clock = Clock.systemDefaultZone();
 		ZoneId zone = clock.getZone();

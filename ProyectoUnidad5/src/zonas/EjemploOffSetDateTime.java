@@ -25,7 +25,7 @@ public class EjemploOffSetDateTime {
 		ZoneId zone2 = ZoneId.of("Asia/Pontianak");
 
 		ZoneOffset zoneOffSet2 = zone2.getRules().getOffset(now);
-
+		System.out.println("Offset Pontianak" + zoneOffSet2);
 		OffsetDateTime offSetZonePontianak = OffsetDateTime.now(zoneOffSet2);
 
 		LocalDateTime LocalPontianak = offSetZonePontianak.toLocalDateTime();

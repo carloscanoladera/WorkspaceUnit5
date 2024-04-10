@@ -1,10 +1,10 @@
-package format;
+package formato;
 
 import java.time.LocalDateTime;
 import java.util.Locale;
 
 public class StringFormatFechas {
-
+	
 	public static void main(String[] args) {
 
 		LocalDateTime date = LocalDateTime.parse("2021-08-14T19:34:50.63");
@@ -19,11 +19,13 @@ public class StringFormatFechas {
 		System.out.println("Fecha america:" + String.format(localeUs, " %tD", date));
 		System.out.println("Fecha española:" + String.format(localeEs, "%1$td-%1$tm-%1$tY", date));
 
+	System.out.println("Fecha formato ISO 8601" + String.format(localeUs, " %tF", date));
+
 		System.out.println("Hora en 24 horas:" + String.format(localeUs, "%tR", date));
 
 		System.out.println("Hora en 12 horas:" + String.format(localeUs, "%tr", date));
 
-		System.out.println("Fecha formato ISO 8601" + String.format(localeUs, " %tF", date));
+	
 
 		System.out.println("Fecha española:" + String.format(localeEs, "%1$td-%1$tm-%1$tY", date));
 
@@ -37,5 +39,4 @@ public class StringFormatFechas {
 		System.out.println("Fecha AMPM:" + fechaCompletaPM);
 
 	}
-
 }
