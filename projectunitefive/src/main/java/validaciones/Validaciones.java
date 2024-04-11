@@ -1,6 +1,8 @@
 package validaciones;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.StringTokenizer;
 
 public class Validaciones {
@@ -8,6 +10,7 @@ public class Validaciones {
 	public static final String ESPACIO_BLANCO = " ";
 	public static final char CARACTER_BLANCO = ' ';
 	public static final char CARACTER_MAS = '+';
+	public static final char CARACTER_BARRA = '/';
 
 	public static boolean esNumerica(String string) {
 		boolean numerica = true;
@@ -24,6 +27,32 @@ public class Validaciones {
 		}
 
 		return numerica;
+
+	}
+
+	public static boolean esDecimal(String string) {
+		boolean decimal = true;
+		StringTokenizer token = new StringTokenizer(string, ".");
+
+		// 999 // 99.99
+
+	    if (token.countTokens() == 2) {
+
+			String parteEntera = token.nextToken();
+			String parteDecimal = token.nextToken();
+
+			if (!esNumerica(parteEntera) || !esNumerica(parteDecimal)) {
+
+				decimal = false;
+
+			}
+
+		} else {
+
+			decimal = esNumerica(string);
+		}
+
+		return decimal;
 
 	}
 
@@ -193,26 +222,77 @@ public class Validaciones {
 
 			}
 		}
-		
+
 		return valido;
 
 	}
-	
+
 	public boolean validaAnnio(String annioS) {
-		
+
 		int annioActual = LocalDate.now().getYear();
 
-		
-		
-		if (esNumerica(annioS) && 
-				Integer.valueOf(annioS) >=-2000 &&
-				Integer.valueOf(annioS) <= annioActual) 
+		if (esNumerica(annioS) && Integer.valueOf(annioS) >= -2000 && Integer.valueOf(annioS) <= annioActual)
 			return true;
 		else
 			return false;
-		
-		
+
 	}
-	
+
+	public boolean validaAnnio(int annio) {
+
+		int annioActual = LocalDate.now().getYear();
+
+		if (annio >= -2000 && annio <= annioActual)
+			return true;
+		else
+			return false;
+
+	}
+
+	// dd/MM/yyyy
+	public boolean validaFechaConString(String fecha) {
+
+		boolean fechaValida = false;
+
+		int dia, mes, annio = 0;
+
+		if (fecha.length() == 10 && fecha.charAt(2) == CARACTER_BARRA && fecha.charAt(5) == CARACTER_BARRA
+				&& esNumerica(fecha.substring(0, 2)) && esNumerica(fecha.substring(3, 5))
+				&& esNumerica(fecha.substring(6, 10))) {
+
+			dia = Integer.valueOf(fecha.substring(0, 2));
+			mes = Integer.valueOf(fecha.substring(3, 5));
+			annio = Integer.valueOf(fecha.substring(6, 10));
+
+			if ((dia >= 1 && dia <= 31) && (mes >= 1 && mes <= 12) && (validaAnnio(annio))) {
+
+				fechaValida = true;
+			}
+
+		}
+
+		return fechaValida;
+	}
+
+	// dd/MM/yyyy
+	public boolean validaFecha(String fecha) {
+
+		boolean fechaValida = true;
+
+		// Por defecto yyyy-MM-dd
+		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		try {
+
+			LocalDate date = LocalDate.parse(fecha, formater);
+
+		} catch (DateTimeParseException ex) {
+
+			fechaValida = false;
+		}
+
+		return fechaValida;
+
+	}
 
 }
