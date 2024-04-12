@@ -1,8 +1,10 @@
 package validaciones;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class Validaciones {
@@ -12,7 +14,7 @@ public class Validaciones {
 	public static final char CARACTER_MAS = '+';
 	public static final char CARACTER_BARRA = '/';
 
-	public static boolean esNumerica(String string) {
+	public static boolean esEntero(String string) {
 		boolean numerica = true;
 		int cont = 0;
 
@@ -36,12 +38,12 @@ public class Validaciones {
 
 		// 999 // 99.99
 
-	    if (token.countTokens() == 2) {
+		if (token.countTokens() == 2) {
 
 			String parteEntera = token.nextToken();
 			String parteDecimal = token.nextToken();
 
-			if (!esNumerica(parteEntera) || !esNumerica(parteDecimal)) {
+			if (!esEntero(parteEntera) || !esEntero(parteDecimal)) {
 
 				decimal = false;
 
@@ -49,7 +51,7 @@ public class Validaciones {
 
 		} else {
 
-			decimal = esNumerica(string);
+			decimal = esEntero(string);
 		}
 
 		return decimal;
@@ -107,7 +109,7 @@ public class Validaciones {
 		boolean soloLetras = true;
 		String palabra;
 
-		while (tokens.hasMoreTokens()) {
+		while (tokens.hasMoreTokens() && soloLetras) {
 
 			palabra = tokens.nextToken();
 
@@ -130,12 +132,13 @@ public class Validaciones {
 				soloLetras = false;
 
 			}
+			index++;
 		}
 
 		return soloLetras;
 	}
 
-	public String capitalizaPalabras(String string) {
+	public static String capitalizaPalabras(String string) {
 
 		String resultado = "";
 
@@ -146,13 +149,13 @@ public class Validaciones {
 			resultado = resultado + capitalizaPalabra(palabras.nextToken()) + ESPACIO_BLANCO;
 
 		}
-		resultado.trim();
+		resultado= resultado.trim();
 
 		return resultado;
 
 	}
 
-	public String capitalizaPalabra(String string) {
+	public static String capitalizaPalabra(String string) {
 
 		String resultado = "";
 
@@ -162,10 +165,10 @@ public class Validaciones {
 
 	}
 
-	public boolean validaDni(String dni) {
+	public static boolean validaDni(String dni) {
 
-		if ((dni.length() == 7 || dni.length() == 8) && Character.isUpperCase(dni.charAt(dni.length() - 1))
-				&& esNumerica(dni.substring(0, dni.length() - 1)))
+		if ((dni.length() == 8 || dni.length() == 9) && Character.isUpperCase(dni.charAt(dni.length() - 1))
+				&& esEntero(dni.substring(0, dni.length() - 1)))
 			return true;
 
 		else
@@ -173,19 +176,19 @@ public class Validaciones {
 
 	}
 
-	public boolean validaTelefono(String telefono) {
+	public static boolean validaTelefono(String telefono) {
 
-		if ((telefono.length() == 9 && esNumerica(telefono)) || validaTelefonoInternacional(telefono))
+		if ((telefono.length() == 9 && esEntero(telefono)) || validaTelefonoInternacional(telefono))
 			return true;
 		else
 			return false;
 
 	}
 
-	public boolean validaTelefonoInternacional(String telefono) {
+	public static boolean validaTelefonoInternacional(String telefono) {
 
-		if (telefono.length() == 13 && telefono.charAt(0) == CARACTER_MAS && esNumerica(telefono.substring(1, 3))
-				&& telefono.charAt(3) == CARACTER_BLANCO && esNumerica(telefono.substring(4))) {
+		if (telefono.length() == 13 && telefono.charAt(0) == CARACTER_MAS && esEntero(telefono.substring(1, 3))
+				&& telefono.charAt(3) == CARACTER_BLANCO && esEntero(telefono.substring(4))) {
 
 			return true;
 
@@ -194,7 +197,7 @@ public class Validaciones {
 
 	}
 
-	public boolean esLetraMayuscula(char letra) {
+	public static boolean esLetraMayuscula(char letra) {
 
 		if (Character.isLetter(letra) && !Character.isLowerCase(letra))
 			return true;
@@ -202,13 +205,13 @@ public class Validaciones {
 			return false;
 	}
 
-	public boolean validaAnnio2(String annioS) {
+	public static boolean validaAnnio2(String annioS) {
 
 		boolean valido = true;
 		int annioActual = LocalDate.now().getYear();
 		int annio;
 
-		if (!esNumerica(annioS)) {
+		if (!esEntero(annioS)) {
 
 			valido = false;
 
@@ -227,18 +230,18 @@ public class Validaciones {
 
 	}
 
-	public boolean validaAnnio(String annioS) {
+	public static boolean validaAnnio(String annioS) {
 
 		int annioActual = LocalDate.now().getYear();
 
-		if (esNumerica(annioS) && Integer.valueOf(annioS) >= -2000 && Integer.valueOf(annioS) <= annioActual)
+		if (esEntero(annioS) && Integer.valueOf(annioS) >= -2000 && Integer.valueOf(annioS) <= annioActual)
 			return true;
 		else
 			return false;
 
 	}
 
-	public boolean validaAnnio(int annio) {
+	public static boolean validaAnnio(int annio) {
 
 		int annioActual = LocalDate.now().getYear();
 
@@ -250,15 +253,15 @@ public class Validaciones {
 	}
 
 	// dd/MM/yyyy
-	public boolean validaFechaConString(String fecha) {
+	public static boolean validaFechaConString(String fecha) {
 
 		boolean fechaValida = false;
 
 		int dia, mes, annio = 0;
 
 		if (fecha.length() == 10 && fecha.charAt(2) == CARACTER_BARRA && fecha.charAt(5) == CARACTER_BARRA
-				&& esNumerica(fecha.substring(0, 2)) && esNumerica(fecha.substring(3, 5))
-				&& esNumerica(fecha.substring(6, 10))) {
+				&& esEntero(fecha.substring(0, 2)) && esEntero(fecha.substring(3, 5))
+				&& esEntero(fecha.substring(6, 10))) {
 
 			dia = Integer.valueOf(fecha.substring(0, 2));
 			mes = Integer.valueOf(fecha.substring(3, 5));
@@ -275,16 +278,23 @@ public class Validaciones {
 	}
 
 	// dd/MM/yyyy
-	public boolean validaFecha(String fecha) {
+	public static boolean validaFecha(String fecha) {
 
 		boolean fechaValida = true;
+		LocalDate date= null;
 
 		// Por defecto yyyy-MM-dd
 		DateTimeFormatter formater = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
 		try {
 
-			LocalDate date = LocalDate.parse(fecha, formater);
+			date = LocalDate.parse(fecha, formater);
+			
+			int dia = Integer.valueOf(fecha.substring(0,2));
+			
+			if (date.getDayOfMonth() != dia)
+				fechaValida = false;
+				
 
 		} catch (DateTimeParseException ex) {
 
@@ -294,5 +304,75 @@ public class Validaciones {
 		return fechaValida;
 
 	}
-
+	
+	public static boolean validaDireccion(String direccion) {
+		
+		boolean direccionValida = false;
+	
+		String array[] = {"Calle", "C\\", "Via", "Ronda", "Plaza", "Avenida" , "Av"};
+		
+		Arrays.sort(array);
+		
+		StringTokenizer palabras= new StringTokenizer(direccion);
+		
+		if (palabras.countTokens() > 1 ) {
+			
+			String primeraPalabra= palabras.nextToken();
+			
+			 if (Arrays.binarySearch(array, primeraPalabra)>=0) {
+				 
+				 direccionValida = true; 
+			 }
+			
+		}		
+		
+		
+		return direccionValida;
+	}
+	
+	public static boolean validaHora(String hora) {
+		
+		boolean validaHora=true;
+		
+		try {
+		
+		LocalTime horaLocal  = LocalTime.parse(hora);
+		
+		} catch(DateTimeParseException dtpe) {
+			
+			validaHora=false;			
+			
+		}
+		
+		return validaHora;
+		
+	}
+	
+	public static boolean validaMatricula(String matricula) {
+		
+		
+		if (matricula.length()==8 && 
+				esEntero(matricula.substring(0, 4)) &&
+				matricula.charAt(4) == CARACTER_BLANCO &&
+				compruebaLetrasCadena(matricula.substring(5, 8))) {
+			
+			return true;
+		} else
+			return false;
+				
+		
+	
+	}
+	
+	
+	public static boolean validaEdad(int edad) {
+		
+		return false;
+	}
+	
+	public static boolean validaEdad(String edad) {
+		
+		return false;
+	}
+	
 }
