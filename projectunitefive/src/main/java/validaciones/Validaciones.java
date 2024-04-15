@@ -375,4 +375,29 @@ public class Validaciones {
 		return false;
 	}
 	
+	public static boolean validaAnnioAntiguo(String annioS) {
+
+		boolean valido = true;
+		int annioActual = LocalDate.now().getYear();
+		int annio;
+
+		if (!esEntero(annioS)) {
+
+			valido = false;
+
+		} else {
+
+			annio = Integer.valueOf(annioS);
+
+			if (annio < -2000 || annio > annioActual) {
+
+				valido = false;
+
+			}
+		}
+
+		return valido;
+
+	}
+	
 }

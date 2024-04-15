@@ -1,6 +1,8 @@
 package iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo;
 
 import java.util.Comparator;
+import java.util.Formatter;
+import java.util.Locale;
 import java.util.Objects;
 
 import iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.interfaces.IEducativo;
@@ -178,6 +180,21 @@ public abstract class Libro implements Comparable<Libro>, InfoAutor, IEducativo 
 	public boolean esEducativo() {
 		
 		return EnumLibro.esEducativo(this.tipoLibro);
+	}
+
+	public void imprimirLibro() {
+		
+
+	Formatter formatter = new Formatter();
+	Locale locale2 = new Locale("ES");
+	formatter.format(locale2, "%n%1$-30s %2$-30s %3$-15s %4$-6s %5$-20s %6$-10s", "Titulo", "Autor", "Referencia", "Año", "Editorial", "Tipo");
+	formatter.format(locale2, "%n%1$-30s %2$-30s %3$-15s %4$-6s %5$-20s %6$-10s",
+			"----------------------------","----------------------------","--------------","------","--------------","----------");
+	formatter.format(locale2, "%n%1$-30s %2$-30s %3$-15s %4$-6d %5$-20s %6$-10s",
+			this.getTitulo(), this.getAutor().getNombre() + " " + this.getAutor().getApellidos() , this.getReferencia(), this.getAnnioPublicacion(), this.getEditorial(), this.getTipoLibro());
+		
+	System.out.println(formatter);
+		
 	}
 
 }
