@@ -23,7 +23,8 @@ public class Ejercicio8 {
 				bLetras=false;
 			}
 			
-		}		
+		}	
+		
 		if (bLetras) 
 			System.out.println("Todos son letras");
 		else 
