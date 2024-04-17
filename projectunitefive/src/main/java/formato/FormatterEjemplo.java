@@ -24,6 +24,8 @@ public class FormatterEjemplo {
 
 		arrayEmpl[5] = new Empleado("John Doe", 52000.1, 52, LocalDate.parse("2014-05-21"));
 
+	
+		
 		Locale locale2 = new Locale("ES");
 		System.out.println("locale: " + locale2);
 

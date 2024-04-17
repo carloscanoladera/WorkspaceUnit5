@@ -7,6 +7,7 @@ public class ExampleStringBuffer {
 		StringBuffer Two = new StringBuffer(20);
 		StringBuffer One = new StringBuffer("Hello World");
 		Two.append("Hello there");
+		Two.replace(0,5,"Yellow");
 
 		One.append("Bye World");
 		System.out.println("One:" + One);
@@ -19,6 +20,8 @@ public class ExampleStringBuffer {
 		System.out.println("Length:" + One.length());
 		System.out.println("String Two:" + Two);
 		System.out.println("Reverse:" + Two.reverse());
+		
+	  
 
 	}
 

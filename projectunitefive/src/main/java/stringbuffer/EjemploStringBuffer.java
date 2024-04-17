@@ -7,9 +7,10 @@ public class EjemploStringBuffer {
 	public static void main(String[] args) {	
 	   
 	
-	    StringBuffer Dos = new StringBuffer( 20 );
+	    StringBuffer Dos = new StringBuffer( 5 );
 	    StringBuffer Uno = new StringBuffer( "Hola Mundo" );
 	    Dos.append("casa al a");
+	    Dos.replace(0,4,"pasa");
 	    
 	    Uno.append("Adios Mundo");
 	    System.out.println("Uno:" + Uno);
@@ -22,6 +23,8 @@ public class EjemploStringBuffer {
 	    System.out.println("Longitud:" + Uno.length());
 	    System.out.println("Cadena Dos:"+Dos);
 	    System.out.println("Reverse:" + Dos.reverse());
+	    
+	   
 	    
 	}
 
