@@ -35,7 +35,8 @@ public class AppBiblio {
 		int opcion = 0;
 
 		Biblioteca biblio = new Biblioteca("Biblioteca municipal de Andujar");
-
+		bootStrapping(biblio);
+		
 		sc = new Scanner(System.in);
 
 		boolean bsalir = true;
@@ -50,17 +51,20 @@ public class AppBiblio {
 				case 1 -> {
 
 					biblio.listarLibros();
+					EntradaDeDatos.pulsaEnterParaContinuar();
 				}
 
 				case 2 -> {
 
 					biblio.listarLibrosFiccion();
+					EntradaDeDatos.pulsaEnterParaContinuar();
 
 				}
 
 				case 3 -> {
 
 					biblio.listarLibrosEducativos();
+					EntradaDeDatos.pulsaEnterParaContinuar();
 
 				}
 				case 4 -> {
@@ -260,6 +264,25 @@ public class AppBiblio {
 
 		return biblioteca.eliminarLibro(referencia);
 
+	}
+	
+	
+	private static void bootStrapping(Biblioteca biblio) {
+		
+		Autor a1 = new Autor("Carlos","Cano","44444444S");
+		Autor a2 = new Autor("Jesus","Tort","555555555F");
+		
+		Libro libro1 = new LibroFiccion("Las venidas de las aguas",
+				a1, 2024, "Ed. Marshall", "978-84-17663-30-8" , EnumLibro.NOVELA);
+		
+		Libro libro2 = new LibroEducativo("Programación Java",
+				a2, 2024, "Ed. Planeta" ,"978-84-96477-95-7" , EnumLibro.TECNICO,"informatica");
+
+
+		
+		Libro[] libros = {libro1, libro2};
+		
+		biblio.agregarLibros(libros);
 	}
 
 }

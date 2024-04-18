@@ -1,5 +1,7 @@
 package iesjandula.projectunitefive.excepciones.ejercicios.biblioteca.modelo;
 
+import java.util.Formatter;
+import java.util.Locale;
 
 /**
  * {@summary This class represents the main management system for the library's inventory and eco-system.}
@@ -19,7 +21,8 @@ public class Biblioteca {
 	
 	// esto es un metodo privado que no iria documentado para el publico
 	private static final Libro libroNulo= new LibroFiccion("LibroNulo",new Autor("ZZZZZ","ZZZZZZ","ZZZZZ"),0,"LibroNulo","ZZZZZZZZZZZZZZZZZZZZZZZZZZZ", EnumLibro.CUENTOS);
-	
+	private static final Locale localeES = new Locale("ES");
+	private static final String GUION="-";
 	/**
 	 * Stores the library's name.
 	 */
@@ -218,13 +221,27 @@ public class Biblioteca {
 
 	public void listarLibros() {
 		
+Formatter formatter = new Formatter(localeES);
+		
+		formatter.format("%1$-40s %2$-40s %3$-20s %4$-6s %5$-20s %6$-12s", 
+						 "Título", "Autor", "Referencia", "Año", "Editorial", "Tipo");
+		
+		formatter.format("%n%1$-40s %2$-40s %3$-20s %4$-6s %5$-20s %6$-12s", 
+						 GUION.repeat(40), GUION.repeat(40), GUION.repeat(20), 
+						 GUION.repeat(6), GUION.repeat(20), GUION.repeat(12));	
+		
       
 		 for (Libro libro: this.getLibros()) {
 			 
-			 System.out.println(libro);
+			 formatter
+			 .format("%n%1$-40s %2$-40s %3$-20s %4$-6d %5$-20s %6$-12s", 
+			          libro.getTitulo(), 
+			          libro.getAutor().getNombre() +" " + libro.getAutor().getApellidos(), 
+			          libro.getReferencia(), libro.getAnnioPublicacion(),
+			          libro.getEditorial(), libro.getTipoLibro());
 		 }
 			 
-			 
+	     System.out.println(formatter);
 	}
 	
 	public void listarLibrosFiccion() {

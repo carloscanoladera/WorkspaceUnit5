@@ -42,7 +42,7 @@ public class EntradaDeDatos {
 		}
 		
 
-		return 0;
+		return opcion;
 
 	}
 	/*
