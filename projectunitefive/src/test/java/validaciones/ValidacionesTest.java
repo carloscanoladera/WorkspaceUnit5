@@ -17,6 +17,7 @@ class ValidacionesTest {
 	void testEsNumerica(String valor, boolean valorEsperado) {
 
 		assertEquals(Validaciones.esEntero(valor), valorEsperado);
+		
 
 	}
 

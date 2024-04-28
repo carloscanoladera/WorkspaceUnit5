@@ -22,31 +22,28 @@ public class Ejercicio37 {
 	private static final String GUION = "-";
 
 	public static void main(String[] args) {
-		
-		
-		String nombreyAp="";
+
+		String nombreyAp = "";
 		int edad;
 		int telefono;
-		Locale localeES= new Locale("ES");
+		Locale localeES = new Locale("ES");
 		Formatter formatter = new Formatter(localeES);
-		
-		formatter.format("%n%1$-40s %2$-6s %3$-12s", "Nombre y Apellidos" , "Edad", "telefono");
-		formatter.format("%n%1$-40s %2$-6s %3$-12s", GUION.repeat(40) , GUION.repeat(6), GUION.repeat(12));
-		
-		for (int i=0; i<20; i++) {
-			
-			
-			nombreyAp=generaNombreYApellidosAleatorio();
-			edad= generarEdadAleatorio();
+
+		formatter.format("%n%1$-40s %2$-6s %3$-12s", "Nombre y Apellidos", "Edad", "telefono");
+		formatter.format("%n%1$-40s %2$-6s %3$-12s", GUION.repeat(40), GUION.repeat(6), GUION.repeat(12));
+
+		for (int i = 0; i < 20; i++) {
+
+			nombreyAp = generaNombreYApellidosAleatorio();
+			edad = generarEdadAleatorio();
 			telefono = generarTelefonoAleatorio();
-			
+
 			formatter.format("%n%1$-40s %2$6d %3$-12d", nombreyAp, edad, telefono);
-			
+
 		}
-		
-		
+
 		System.out.println(formatter);
-		
+
 		// TODO Auto-generated method stub
 
 	}
@@ -54,16 +51,12 @@ public class Ejercicio37 {
 	private static String generaNombreYApellidosAleatorio() {
 
 		return generaNombreAleatorio() + BLANCO + generaApellidoAleatorio() + BLANCO + generaApellidoAleatorio();
-		
-		
 
 	}
 
 	private static String generaNombreAleatorio() {
 		Random random = new Random();
-		int index = random.nextInt(0, nombres.length - 1);
-		
-	
+		int index = random.nextInt(0, nombres.length);
 
 		return Validaciones.capitalizaPalabras(nombres[index]);
 
@@ -71,19 +64,17 @@ public class Ejercicio37 {
 
 	private static String generaApellidoAleatorio() {
 
-		return Validaciones.
-				capitalizaPalabras(apellidos[new Random().nextInt(0,
-						           apellidos.length - 1)]);
+		return Validaciones.capitalizaPalabras(apellidos[new Random().nextInt(0, apellidos.length)]);
 
 	}
 
 	private static int generarEdadAleatorio() {
 
-		return new Random().nextInt(0, 100);
+		return new Random().nextInt(0, 101);
 	}
 
 	private static int generarTelefonoAleatorio() {
 
-		return new Random().nextInt(955000000, 999999999);
+		return new Random().nextInt(955000000, 1000000000);
 	}
 }

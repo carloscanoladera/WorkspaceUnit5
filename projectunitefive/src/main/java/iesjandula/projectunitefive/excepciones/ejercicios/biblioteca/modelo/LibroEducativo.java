@@ -14,6 +14,16 @@ public class LibroEducativo extends Libro{
 	}
 
 
+	public String getMateria() {
+		return materia;
+	}
+
+
+	public void setMateria(String materia) {
+		this.materia = materia;
+	}
+
+
 	@Override
 	public String toString() {
 		return "LibroEducativo [materia=" + materia + ", titulo=" + getTitulo() + ", autor=" + getAutor()

@@ -187,10 +187,14 @@ public abstract class Libro implements Comparable<Libro>, InfoAutor, IEducativo 
 
 	Formatter formatter = new Formatter();
 	Locale locale2 = new Locale("ES");
-	formatter.format(locale2, "%n%1$-30s %2$-30s %3$-15s %4$-6s %5$-20s %6$-10s", "Titulo", "Autor", "Referencia", "Año", "Editorial", "Tipo");
-	formatter.format(locale2, "%n%1$-30s %2$-30s %3$-15s %4$-6s %5$-20s %6$-10s",
-			"----------------------------","----------------------------","--------------","------","--------------","----------");
-	formatter.format(locale2, "%n%1$-30s %2$-30s %3$-15s %4$-6d %5$-20s %6$-10s",
+	formatter.format("%1$-40s %2$-40s %3$-20s %4$-6s %5$-20s %6$-12s", "Título", "Autor", "Referencia", "Año",
+			"Editorial", "Tipo");
+
+	formatter.format("%n%1$-40s %2$-40s %3$-20s %4$-6s %5$-20s %6$-12s", 
+			Constantes.GUION.repeat(40), Constantes.GUION.repeat(40),
+			Constantes.GUION.repeat(20), Constantes.GUION.repeat(6),
+			Constantes.GUION.repeat(20), Constantes.GUION.repeat(12));
+	formatter.format(locale2, "%n%1$-40s %2$-40s %3$-20s %4$-6d %5$-20s %6$-12s",
 			this.getTitulo(), this.getAutor().getNombre() + " " + this.getAutor().getApellidos() , this.getReferencia(), this.getAnnioPublicacion(), this.getEditorial(), this.getTipoLibro());
 		
 	System.out.println(formatter);
