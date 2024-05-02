@@ -3,7 +3,7 @@ package ejercicio.notas.modelo;
 import java.util.Objects;
 
 public abstract class Nota implements Comparable<Nota>, TipoNota {
-	protected static long nuevoId=0;  
+	protected static long nuevoId = 0;
 
 	public long id;
 	public String lineaTexto;
@@ -15,10 +15,9 @@ public abstract class Nota implements Comparable<Nota>, TipoNota {
 		nuevoId++;
 		this.lineaTexto = lineaTexto;
 		this.numPalabraComienzo = numPalabraComienzo;
-		
-		
+
 	}
-	
+
 	public abstract EnumNota devuelveTipoNota();
 
 	public long getId() {
