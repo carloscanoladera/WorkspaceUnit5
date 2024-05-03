@@ -9,6 +9,18 @@ public class NotaMarcada extends Nota {
 		
 		this.color=color;
 	}
+	
+	
+	public String getColor() {
+		return color;
+	}
+
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+
 	@Override
 	public EnumNota devuelveTipoNota() {
 		// TODO Auto-generated method stub

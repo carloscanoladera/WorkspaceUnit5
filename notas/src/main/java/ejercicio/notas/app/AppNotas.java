@@ -67,13 +67,15 @@ public class AppNotas {
 				}
 
 				case 2 -> {
+					
+					bloc.listarNotasMarcadas();
 
 					
 				}
 
 				case 3 -> {
 
-					
+					bloc.listarNotasAlarma();
 
 				}
 				case 4 -> {

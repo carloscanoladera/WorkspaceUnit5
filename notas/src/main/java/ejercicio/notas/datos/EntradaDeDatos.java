@@ -8,6 +8,7 @@ import java.util.StringTokenizer;
 
 import ejercicio.notas.excepciones.EntradaDeDatosException;
 import ejercicio.notas.excepciones.MenuException;
+import ejercicio.notas.modelo.EnumNota;
 
 public class EntradaDeDatos {
 
@@ -104,6 +105,40 @@ public class EntradaDeDatos {
 		
 		return horaT;
 
+	}
+	
+	public static EnumNota getTipoNota() throws EntradaDeDatosException {
+		
+		String sTipo = sc.nextLine();
+		boolean tipoValido= true;
+		EnumNota tipoNota=EnumNota.NOTA_ALARMA;
+		
+		
+
+		int tipo=0;
+		
+		if (esCadenaNumerica(sTipo)) {
+			
+			tipo= Integer.valueOf(sTipo);
+			
+			if ( tipo<0 || tipo >= EnumNota.values().length) 
+				tipoValido=false;
+		} else {
+			
+			tipoValido= false;
+		}
+			
+		if (!tipoValido) {
+			
+			throw new EntradaDeDatosException("Para el tipo de nota introduce 0 para NotaAlarma, 1 para NotaMarcada");
+
+		} 	
+		
+		tipoNota= EnumNota.values()[tipo];
+	
+			
+		return tipoNota;
+		
 	}
 	
 	
