@@ -11,27 +11,36 @@ public class EjemploOffSetDateTime {
 	public static void main(String[] args) {
 
 		LocalDateTime now = LocalDateTime.now();
-		ZoneOffset zoneOffSet = ZoneOffset.of("+02:00");
+		ZoneOffset zoneOffSet = ZoneOffset.of("+04:00");
 
 		System.out.println(zoneOffSet);
 
-		OffsetDateTime offSetZonePlusTwo = OffsetDateTime.now(zoneOffSet);
+		OffsetDateTime offSetDateZonePlus4 = OffsetDateTime.now(zoneOffSet);
+		LocalDateTime Local = offSetDateZonePlus4.toLocalDateTime();
 
-		LocalDateTime Local = offSetZonePlusTwo.toLocalDateTime();
-
-		System.out.println("Fecha Local en zona +2:00:\n");
+		System.out.println("Local Zone +4:00:");
 		System.out.println(Local);
 
-		ZoneId zone2 = ZoneId.of("Asia/Pontianak");
+		ZoneId zonePontianak = ZoneId.of("Asia/Pontianak");
 
-		ZoneOffset zoneOffSet2 = zone2.getRules().getOffset(now);
-		System.out.println("Offset Pontianak" + zoneOffSet2);
-		OffsetDateTime offSetZonePontianak = OffsetDateTime.now(zoneOffSet2);
+		ZoneOffset zoneOffSetPontianak = zonePontianak.getRules().getOffset(now);
+		System.out.println("Offset Pontianak" + zoneOffSetPontianak);
 
-		LocalDateTime LocalPontianak = offSetZonePontianak.toLocalDateTime();
+		OffsetDateTime offSetDateZonePontianak = offSetDateZonePlus4.withOffsetSameInstant(zoneOffSetPontianak);
 
-		System.out.println("Fecha Local en zona Pontianak:\n");
+		System.out.println("OffsetDate Pontianak:" + offSetDateZonePontianak);
+
+		LocalDateTime LocalPontianak = offSetDateZonePontianak.toLocalDateTime();
+
+		System.out.println("Local Pontianak:");
 		System.out.println(LocalPontianak);
+		
+		ZonedDateTime zonedPontianak = offSetDateZonePlus4.atZoneSameInstant(zoneOffSetPontianak);
+		System.out.println("Zoned Pontianak:" + zonedPontianak);
+		
+		OffsetDateTime offsetDatePontianak = zonedPontianak.toOffsetDateTime();
+
+		
 
 	}
 

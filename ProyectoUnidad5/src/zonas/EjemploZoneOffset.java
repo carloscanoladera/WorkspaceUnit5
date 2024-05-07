@@ -1,5 +1,4 @@
 package zonas;
-
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
@@ -10,10 +9,10 @@ public class EjemploZoneOffset {
 
 		LocalDateTime now = LocalDateTime.now();
 		ZoneId zone = ZoneId.of("Europe/Berlin");
-
+	
 		ZoneOffset zoneOffSet = zone.getRules().getOffset(now);
 
-		System.out.println("La hora en berlin respecto a Greenwich es" + zoneOffSet);
+		System.out.println("La hora en Local  respecto a Greenwich es" + zoneOffSet);
 		
 		
 		ZoneId zone2 = ZoneId.of("Asia/Pontianak");

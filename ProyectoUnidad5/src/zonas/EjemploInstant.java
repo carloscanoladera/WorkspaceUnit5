@@ -3,77 +3,57 @@ package zonas;
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 import java.time.ZonedDateTime;
 
-
 public class EjemploInstant {
 
 	public static void main(String[] args) {
-
-		ZoneId zoneDefault=ZoneId.systemDefault();
 		
+
+		ZoneId zoneDefault = ZoneId.systemDefault();
 
 		// Parseando de cadena
-	    Instant instant1 = Instant.parse("2021-02-09T11:19:42.12Z");
-	    System.out.println("Parseado el instante: " + instant1);
+		Instant instant1 = Instant.parse("2021-02-09T11:19:42.12Z");
+		System.out.println("Parseado el instante: " + instant1);
 
-		
 		Clock myClock = Clock.systemDefaultZone();
-		
+
 		Instant instant2 = myClock.instant();
-		   
-		System.out.println("Parseado el instante: " + instant2);
 
+		System.out.println("Instant desde mi reloj: " + instant2);
 
-		
-		
 		LocalDateTime local = LocalDateTime.now();
 		System.out.println("Fecha local:" + local);
-		
-		Instant instant3 = local.toInstant(zoneDefault.getRules().getOffset(local));
-		
-		System.out.println("Instant local: " + local);
-		
-		System.out.println("milisecs: " + instant3.toEpochMilli());
-		
-			
-		      
 
-	        //Convert instant to LocalDateTime, no timezone, add a zero offset / UTC+0
-	     
-		LocalDateTime instantALocal = LocalDateTime.ofInstant(instant3, zoneDefault.getRules().getOffset(local));
-		
-		System.out.println(instantALocal);
+		Instant instantNow = local.toInstant(zoneDefault.getRules().getOffset(local));
 
+		System.out.println("Instant local: " + instantNow);
+
+		System.out.println("milisecs: " + instantNow.toEpochMilli());
+		
 		//Greenwich
-		LocalDateTime instantALocal2 = LocalDateTime.ofInstant(instant3, ZoneOffset.UTC);
+		LocalDateTime instantLocal2 = LocalDateTime.ofInstant(instantNow, ZoneOffset.UTC);
 
-		
-		LocalDateTime now = LocalDateTime.now();
-		ZoneId zoneBerlin = ZoneId.of("Europe/Berlin");
-	
-	
-		System.out.println("Fecha Berlin" + zoneBerlin);
-		
+		// Convert instant to LocalDateTime, no timezone, adding the local  offset
 
-		ZonedDateTime dateZoneBerlin = ZonedDateTime.now(zoneBerlin);	
-	
-			  
-		
-		Instant instant4  = dateZoneBerlin.toInstant();
-		
-		
-		System.out.println("instant de zone Berlin: "+ instant4);
-				
-	     ZonedDateTime zonedatetoInstant = instant4.atZone(ZoneId.of("Asia/Tokyo"));
+		LocalDateTime instantALocal = LocalDateTime.ofInstant(instantNow, zoneDefault.getRules().getOffset(local));
 
-        System.out.println("ZonedDateTime obtenidad de instant4 : " + zonedatetoInstant);
-				
+		System.out.println("Local date desde instance:" + instantALocal);	
 		
+		ZonedDateTime zonedateFromInstant = instantNow.atZone(ZoneId.of("Asia/Tokyo"));
+
+		System.out.println("ZonedDateTime obtenidad de instante para Japon: " + zonedateFromInstant);
 		
+		instantNow = zonedateFromInstant.toInstant();
 		
+		System.out.println("Instant desde Zoned:" + instantNow);
 		
+		OffsetDateTime offsetdatefromInstant = instantNow.atOffset(ZoneOffset.of("+04"));
+
+		System.out.println("OffsetDateTime +04 " + zonedateFromInstant);
+
 	}
 }
