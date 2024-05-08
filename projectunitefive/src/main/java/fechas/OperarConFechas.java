@@ -3,9 +3,7 @@ package fechas;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import static java.time.temporal.ChronoUnit.DAYS;
-
 import static java.time.temporal.ChronoUnit.MONTHS;
-import static java.time.temporal.ChronoUnit.MINUTES;
 
 public class OperarConFechas {
 	
@@ -50,14 +48,16 @@ public static void main(String[] args) {
             = LocalDate.parse("123-2021", formatter);
         
         LocalDate date6= date5.plusMonths(8);
-        
+        LocalDate date7= date5.plus(8, MONTHS);
+        date7= date5.minus(8, MONTHS);
         
         System.out.println("Fecha con dia en el año:" + date5 + " le sumamos 8 meses " + date6);
         
+              System.out.println("Fecha con dia en el año:" + date5 + " le restamos 20 dias " + date5.plus(-20, DAYS));
 
-        System.out.println("Fecha con dia en el año:" + date5 + " le restamos 20 dias " + date5.plus(-20, DAYS));
-        
         System.out.println("Fecha con dia en el año:" + date5 + " le restamos 2 meses " + date5.minus(2, MONTHS));
+
+
 	
 	}
 

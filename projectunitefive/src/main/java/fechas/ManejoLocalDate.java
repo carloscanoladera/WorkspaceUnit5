@@ -1,4 +1,5 @@
 package fechas;
+
 import java.time.Clock;
 import java.time.Instant;
 import java.time.LocalDate;
@@ -24,7 +25,7 @@ public class ManejoLocalDate {
 
 		LocalDate date3 = LocalDate.parse("2021-08-14");
 		
-		System.out.println("dia en el año " + date2.getDayOfYear() + " mes " + date2.getMonth() + " Era " + date2.getEra());
+		System.out.println("dia en el año " + date2.getDayOfMonth() + " mes " + date2.getMonth() + " Era " + date2.getEra());
 		
 	
 		 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
