@@ -19,12 +19,13 @@ public class OperarConHoras {
 			
 			LocalTime time2 = LocalTime.of(10, 12, 20);
 			
-			System.out.println("time2:" + time2);
+			System.out.println("time:" + time2);
 			
 			System.out.println("comparamos time y time2:" + time.compareTo(time2) );
 			
 			
 			LocalTime time3 = time2.minusHours(2);
+			 time3= time2.plus(50,MINUTES);
 			
 			System.out.println("restamos dos horas a time2 obteniendo time3:"+time3);
 			

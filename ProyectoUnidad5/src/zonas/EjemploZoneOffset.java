@@ -1,5 +1,6 @@
 package zonas;
 import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 import java.time.ZoneId;
 import java.time.ZoneOffset;
 
@@ -20,6 +21,8 @@ public class EjemploZoneOffset {
 		ZoneOffset zoneOffSet2 = zone2.getRules().getOffset(now);
 		
 		System.out.println("La hora en Pontianak respecto a Greenwich es:" + zoneOffSet2);
+		
+
 		
 	}
 

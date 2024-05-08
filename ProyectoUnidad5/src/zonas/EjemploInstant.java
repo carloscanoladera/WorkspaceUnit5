@@ -41,7 +41,7 @@ public class EjemploInstant {
 
 		LocalDateTime instantALocal = LocalDateTime.ofInstant(instantNow, zoneDefault.getRules().getOffset(local));
 
-		System.out.println("Local date desde instance:" + instantALocal);	
+		System.out.println("Local date desde instant:" + instantALocal);	
 		
 		ZonedDateTime zonedateFromInstant = instantNow.atZone(ZoneId.of("Asia/Tokyo"));
 
